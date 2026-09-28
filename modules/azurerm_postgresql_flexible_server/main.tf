@@ -11,5 +11,5 @@ resource "azurerm_postgresql_flexible_server" "postgresql_pgadmin" {
   storage_mb             = 32768
   zone = 1
   storage_tier = "P4"
-  sku_name               = each.value.vm_size
+  sku_name               = each.value.sku_name
 }
