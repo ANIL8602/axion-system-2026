@@ -28,3 +28,11 @@ module "virtual_machine" {
   virtual_machine = var.virtual_machine
   
 }
+
+
+module "postgresql_pgadmin" {
+  
+  source = "../../modules/azurerm_postgresql_flexible_server"
+  postgresql_pgadmin = var.postgresql_pgadmin
+  
+}

@@ -7,3 +7,7 @@ variable "subnets" {}
 variable "public_ips" {}
 
 variable "virtual_machine" {}
+
+variable "postgresql_pgadmin" {
+  
+}
