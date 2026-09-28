@@ -4,12 +4,12 @@ resource "azurerm_postgresql_flexible_server" "postgresql_pgadmin" {
   name                   = each.value.postgresql_name
   resource_group_name    = each.value.rg_name
   location               = each.value.location
-  version                = "12"
+  version                = "16"
   public_network_access_enabled = "true"
   administrator_login    = each.value.admin_login
   administrator_password = each.value.admin_password
   storage_mb             = 32768
   zone = 1
   storage_tier = "p4"
-  sku_name               = "Standard_B2ats_v2"
+  sku_name               = "B_Standard_B1ms"
 }

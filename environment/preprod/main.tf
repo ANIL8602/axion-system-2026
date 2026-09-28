@@ -17,22 +17,22 @@ module "subnet" {
 }
 
 module "public_ips" {
-   depends_on = [ module.rg ]
-  source  = "../../modules/azurerm_public-ip"
+  depends_on = [module.rg]
+  source     = "../../modules/azurerm_public-ip"
   public_ips = var.public_ips
 }
 
 module "virtual_machine" {
-  depends_on = [ module.public_ips,module.subnet ]
-  source = "../../modules/azurerm_virtual_machine"
+  depends_on      = [module.public_ips, module.subnet]
+  source          = "../../modules/azurerm_virtual_machine"
   virtual_machine = var.virtual_machine
-  
+
 }
 
 
 module "postgresql_pgadmin" {
-  
-  source = "../../modules/azurerm_postgresql_flexible_server"
+
+  source             = "../../modules/azurerm_postgresql_flexible_server"
   postgresql_pgadmin = var.postgresql_pgadmin
-  
+
 }
