@@ -23,7 +23,7 @@ module "public_ips" {
 }
 
 module "virtual_machine" {
-  depends_on      = [module.public_ips, module.subnet]
+  depends_on      = [module.public_ips, module.subnet,module.rg]
   source          = "../../modules/azurerm_virtual_machine"
   virtual_machine = var.virtual_machine
 
@@ -31,6 +31,7 @@ module "virtual_machine" {
 
 
 module "postgresql_pgadmin" {
+  depends_on = [module.rg]
 
   source             = "../../modules/azurerm_postgresql_flexible_server"
   postgresql_pgadmin = var.postgresql_pgadmin
