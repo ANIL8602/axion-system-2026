@@ -15,7 +15,39 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+  dynamic "security_rule" {
+  for_each = each.key == "vm1" ? [1] : []
+
+  content {
+    name                       = "Allow-HTTP-80"
+    priority                   = 1000
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "Internet"
+    destination_address_prefix = "*"
+  }
 }
+
+dynamic "security_rule" {
+  for_each = each.key == "vm2" ? [1] : []
+
+  content {
+    name                       = "Allow-Backend-8000"
+    priority                   = 1000
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "8000"
+    source_address_prefix      = "Internet"
+    destination_address_prefix = "*"
+  }
+}
+}
+
 
 resource "azurerm_network_interface" "nics" {
   for_each = var.virtual_machine
@@ -50,8 +82,8 @@ resource "azurerm_linux_virtual_machine" "vms" {
   ]
  
   disable_password_authentication = false
-  admin_password                  = each.value.admin_password
-              
+  admin_password                  = each.value.admin_password       
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"

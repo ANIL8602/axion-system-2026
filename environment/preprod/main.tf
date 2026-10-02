@@ -23,7 +23,7 @@ module "public_ips" {
 }
 
 module "virtual_machine" {
-  depends_on      = [module.public_ips, module.subnet,module.rg]
+  depends_on      = [module.public_ips, module.subnet, module.rg]
   source          = "../../modules/azurerm_virtual_machine"
   virtual_machine = var.virtual_machine
 
